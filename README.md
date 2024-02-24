@@ -1,8 +1,12 @@
-# The Stealer - window data stealer
+# The Stealer - Windows Data Stealer
 
-**Time Invested in it.....**  *started(12 feb 24) - end (25 feb 24)*\
-**Time-** `56 Hours`\
-**by-** akki  ~  insta-[@akki_raj_._](https://www.instagram.com/its_just_me_akki/)
+🚧 **Development Status:** Under Development  
+⏳ **Time Invested:** Started on February 12, 2024, ended on February 25, 2024  
+⏰ **Hours:** 56 hours  
+👨‍💻 **Developer:** Akki  
+📸 **Instagram:** [@akki_raj_._](https://www.instagram.com/its_just_me_akki/)
+
+
 
 ## Introduction to the Data Stealer Project
 
@@ -33,21 +37,55 @@ The Data Stealer project encompasses a wide array of functionalities, allowing f
   - Displaying messages to users
   - Executing file deletions
 
+## /!\ Errors in Code
+
+Errors currently encountered in The Stealer project that will be addressed in future updates:
+
+### 1. /!\ No Passwords Displayed after Extraction
+
+This issue arises during password decryption on our local machine due to differences in environment and DD-API between our computer and the victim's computer. The `win32crypt.CryptUnprotectData` function used for decrypting Chrome encryption keys on our computer fails due to these differences. Interestingly, the same action performed on the victim's computer does not encounter this error. To address this issue in the next update, we will:
+
+1. Implement a function to decrypt passwords on the victim's computer.
+
+2. Modify the data structure to directly store passwords, eliminating the need for encryption keys. Changes will be made in:
+
+   - Edge Data Extractor Function Data Structure
+   - Edge Data Configuration Function Data Structure
+   - Chrome ID Password Extractor Function Data Structure
+   - Chrome ID Password Configuration Function Data Structure
+   - `row_virus.py` Modification
+
+These updates aim to enhance decryption processes and improve compatibility across different computer systems.
+
+### 2. /!\ Deletion Failure in `virus.py` after Extraction and Sending of Data
+
+The error could be caused by the deletion code being called within `row_virus.py` without proper permissions to delete files, or due to the existence of code in `row_virus.py` after the deletion code. As a result, the deletion of files fails. This error has not been fully identified yet, but it will be addressed in the next update.
+
 ## Future Developments
 
-While the Data Stealer project offers a comprehensive range of functionalities, there are certain capabilities that are not yet implemented but may be included in future updates. These potential developments may include:
+As the Data Stealer project continues to evolve, there are several exciting developments that we plan to incorporate in future updates. These enhancements will further expand the capabilities of the project and ensure its relevance in the ever-changing landscape of cybersecurity:
 
-- **Enhanced Stealth Mechanisms**: Future versions of the project may incorporate advanced techniques to evade detection by antivirus software and security measures.
-  
-- **Expanded Data Extraction**: There may be additions to the types of data that can be extracted from target systems, further enhancing the project's capabilities for educational exploration.
+- **Enhanced Stealth Mechanisms:** Future versions of the project will incorporate advanced techniques to evade detection by antivirus software and security measures, ensuring improved stealth and effectiveness.
 
-- **Improved Encryption and Decryption**: Future updates may introduce enhancements to encryption algorithms and decryption mechanisms, ensuring stronger data security and privacy.
+- **Error Handling and Data Extraction:** We will implement robust error handling mechanisms to ensure smooth operation and data extraction under all circumstances, regardless of any encountered errors.
+
+- **Expansion of Data Acquisition:** We aim to broaden the scope of data acquisition by adding new categories of sensitive information, including Windows passwords, critical system information such as DD-API, user data, password lists, CREDHIST, NTLM HASH, Master Key, ASA DIR, and more.
+
+- **Comprehensive System Manipulation:** We will introduce features to decrypt entire computers or even render them inoperable, providing users with unprecedented control over targeted systems.
+
+- **Installation of RATs and Backdoors:** Future updates will include capabilities for installing Remote Access Trojans (RATs) or backdoors through the assistance of the virus, enabling remote access and control over compromised systems.
+
+- **Keylogger Installation:** We plan to integrate functionality for installing keyloggers, allowing for the capture of keystrokes and sensitive information entered by users.
+
+- **Installation of Additional Software:** The project will facilitate the installation of additional software, such as Telegram, Minecraft, and banking applications, with their details stored in hash format for educational purposes.
+
+- **Ongoing Improvement and Expansion:** The development of the Data Stealer project will continue indefinitely, with a commitment to ongoing improvement and expansion. We will strive to make it the best-in-class tool for educational purposes, continuously adding new features and capabilities to meet the evolving needs of cybersecurity education and exploration.
 
 - **User Interface Enhancements**: There could be improvements to the user interface to enhance usability and accessibility, making it easier for users to interact with the project.
 
 - **Additional Educational Resources**: The project may include supplementary documentation, tutorials, and resources to provide users with more comprehensive educational support.
 
-While these developments are envisioned for future updates, their implementation is subject to feasibility and resource availability. Stay tuned for future announcements and updates on the Data Stealer project.
+Stay tuned for these exciting developments and more as we work tirelessly to make the Data Stealer project the ultimate tool for cybersecurity education and exploration.
 
 ## Teaching Purpose and Potential Dangers
 
@@ -90,6 +128,7 @@ comand-> i. `cd the_stealer` ii. `python setup.py`
 1. `git clone https://github.com/Akkiraj1234/the_stealer`
 2. `cd the_stealer`
 3. `python setup.py`
+4. `python main.py`
 
 By following these instructions, you can effectively utilize the Data Stealer project for educational purposes and understand its functionalities.
 
